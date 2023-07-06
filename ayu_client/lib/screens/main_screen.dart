@@ -1,6 +1,6 @@
-import 'package:ayu_client/exchange_screen/exchange_screen.dart';
-import 'package:ayu_client/order_screen/order_screen.dart';
-import 'package:ayu_client/summary_screen/summary_screen.dart';
+import 'package:ayu_client/screens/exchange_screen.dart';
+import 'package:ayu_client/screens/order_screen.dart';
+import 'package:ayu_client/screens/summary_screen.dart';
 import 'package:flutter/material.dart';
 //import 'package:drift/drift.dart';
 
