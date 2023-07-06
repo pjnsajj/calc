@@ -1,10 +1,8 @@
-
 import 'package:ayu_client/auth_screen/auth_screen.dart';
 import 'package:ayu_client/main_screen/main_screen.dart';
 import 'package:ayu_client/registr_screen/registr_screen.dart';
 import 'package:ayu_client/start_screen/start_screen.dart';
 import 'package:flutter/material.dart';
-
 
 void main() {
   runApp(const MyApp());

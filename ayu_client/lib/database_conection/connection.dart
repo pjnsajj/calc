@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
- late final  db;
+late final db;
 
 class Prodact {
   final String productName;
@@ -15,11 +15,10 @@ class Prodact {
       required this.productStock});
 }
 
-void connection() async{
-WidgetsFlutterBinding.ensureInitialized();
+void connection() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-final database = openDatabase(
-
-  join(await getDatabasesPath(), 'ayu_sqlite.db'),
-);
+  final database = openDatabase(
+    join(await getDatabasesPath(), 'ayu_sqlite.db'),
+  );
 }

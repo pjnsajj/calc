@@ -1,9 +1,7 @@
 import 'package:ayu_client/calendar/calendar.dart';
 import 'package:ayu_client/product_characteristics/product_characteristics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; 
- 
-
+import 'package:flutter/services.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -101,11 +99,6 @@ class _OrderScreenState extends State<OrderScreen> {
           ),
         ),
       ],
-    
-    )
-    );
+    ));
   }
 }
-
-
-
