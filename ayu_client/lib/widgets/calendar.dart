@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class HomePage extends StatefulWidget {
+class Calendar extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomePage();
+    return _Calendar();
   }
 }
 
-class _HomePage extends State<HomePage> {
+class _Calendar extends State<Calendar> {
   TextEditingController dateInput = TextEditingController();
 
   @override

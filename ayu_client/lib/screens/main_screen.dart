@@ -17,6 +17,7 @@ class _MainScreenState extends State<MainScreen> {
     OrderScreen(),
     SummaryScreen(),
     ExchangeScreen(),
+    Text('data')
   ];
 
   void onSelectedTab(int index) {
@@ -36,32 +37,11 @@ class _MainScreenState extends State<MainScreen> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.menu_outlined),
+            icon: const Icon(Icons.shopping_cart),
             tooltip: 'Show Snackbar',
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('This is a snackbar')));
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.person_2_outlined),
-            tooltip: 'Go to the next page',
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute<void>(
-                builder: (BuildContext context) {
-                  return Scaffold(
-                    appBar: AppBar(
-                      title: const Text('Next page'),
-                    ),
-                    body: const Center(
-                      child: Text(
-                        'This is the next page',
-                        style: TextStyle(fontSize: 24),
-                      ),
-                    ),
-                  );
-                },
-              ));
             },
           ),
         ],
@@ -87,6 +67,10 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.upload_sharp),
+            label: 'Обмен',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_2),
             label: 'Обмен',
           ),
         ],

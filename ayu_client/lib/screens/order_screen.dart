@@ -1,7 +1,11 @@
-import 'package:ayu_client/calendar/calendar.dart';
-import 'package:ayu_client/product_characteristics/product_characteristics.dart';
+// import 'package:ayu_client/widgets/calendar.dart';
+// import 'package:ayu_client/product_characteristics/product_characteristics.dart';
+//import 'package:ayu_client/widgets/searcher.dart';
+import 'package:ayu_client/widgets/searcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../product_characteristics/product_characteristics.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -11,94 +15,108 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
+  final List<Drink> drinks = [
+    Drink('Кола', 'images/1.jpeg', 2.99),
+    Drink('Лимонад', 'images/2.jpeg', 1.99),
+    Drink('Чай', 'images/3.jpeg', 0.99),
+  ];
+  List<Drink> cartItems = [];
+
+  void addToCart(Drink drink) {
+    setState(() {
+      cartItems.add(drink);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
       children: [
-        HomePage(),
-        DropdownButton<String>(
-          value: dropdownValue,
-          icon: const Icon(Icons.arrow_drop_down_sharp),
-          elevation: 16,
-          style: const TextStyle(color: Colors.black),
-          onChanged: (String? value) {
-            // This is called when the user selects an item.
-            setState(() {
-              dropdownValue = value!;
-            });
-          },
-          items: list.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-        ListTile(
-          title: Text(
-              '$productNameValue     цена:$productPrice      остаток:$productStock'),
-          onTap: () => showDialog(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text('$productNameValue     цена:$productPrice'),
-              actions: <Widget>[
-                Row(
-                  children: [
-                    const Padding(padding: EdgeInsets.only(right: 60)),
-                    SizedBox(
-                      width: 40,
-                      height: 35,
-                      child: TextField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          isCollapsed: true,
-                        ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 100,
-                    ),
-                    SizedBox(
-                      width: 60,
-                      height: 40,
-                      child: DropdownButton<String>(
-                        value: dropdownQuantity,
-                        icon: const Icon(Icons.arrow_drop_down_sharp),
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.black),
-                        onChanged: (String? value) {
-                          // This is called when the user selects an item.
-                          setState(() {
-                            dropdownQuantity = value!;
-                          });
-                        },
-                        items: quantity
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ],
+        Searcher(),
+        Container(
+          height: MediaQuery.of(context).size.width,
+          width: MediaQuery.of(context).size.height,
+          child: ListView.builder(
+            itemCount: drinks.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: ListTile(
+                  leading: Image.asset(
+                    drinks[index].imagePath,
+                    width: 60,
+                    height: 60,
+                  ),
+                  title: Text(drinks[index].name),
+                  subtitle: Text('\$${drinks[index].price.toStringAsFixed(2)}'),
+                  trailing: IconButton(
+                    icon: Icon(Icons.add_shopping_cart),
+                    onPressed: () {
+                      addToCart(drinks[index]);
+                    },
+                  ),
                 ),
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ],
     ));
+  }
+}
+
+class SearchBarApp extends StatefulWidget {
+  const SearchBarApp({super.key});
+
+  @override
+  State<SearchBarApp> createState() => _SearchBarAppState();
+}
+
+class _SearchBarAppState extends State<SearchBarApp> {
+  final SearchController controller = SearchController();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData themeData = ThemeData(useMaterial3: true);
+
+    return MaterialApp(
+      theme: themeData,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Search Anchor Sample')),
+        body: Column(
+          children: <Widget>[
+            SearchAnchor(
+                searchController: controller,
+                builder: (BuildContext context, SearchController controller) {
+                  return IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () {
+                      controller.openView();
+                    },
+                  );
+                },
+                suggestionsBuilder:
+                    (BuildContext context, SearchController controller) {
+                  return List<ListTile>.generate(5, (int index) {
+                    final String item = 'item $index';
+                    return ListTile(
+                      title: Text(item),
+                      onTap: () {
+                        setState(() {
+                          controller.closeView(item);
+                        });
+                      },
+                    );
+                  });
+                }),
+            Center(
+              child: controller.text.isEmpty
+                  ? const Text('No item selected')
+                  : Text('Selected item: ${controller.value.text}'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

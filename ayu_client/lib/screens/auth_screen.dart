@@ -1,4 +1,4 @@
-import 'package:ayu_client/colors/colors.dart';
+import 'package:ayu_client/widgets/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {

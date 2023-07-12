@@ -1,4 +1,4 @@
-import 'package:ayu_client/calendar/calendar.dart';
+import 'package:ayu_client/widgets/calendar.dart';
 import 'package:flutter/material.dart';
 
 class SummaryScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        children: [HomePage()],
+        children: [Calendar()],
       ),
     );
   }

@@ -14,3 +14,11 @@ String dropdownQuantity = quantity.first;
 List<bool> selected =
     List<bool>.generate(productQuantity, (int index) => false);
 String productNameValue = productName.toString();
+
+class Drink {
+  final String name;
+  final String imagePath;
+  final double price;
+
+  Drink(this.name, this.imagePath, this.price);
+}
